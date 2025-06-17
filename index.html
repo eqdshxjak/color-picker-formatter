@@ -1,0 +1,395 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Color Picker Formatter but ChatGPT'd and Bad</title>
+  <link rel="icon" href="https://raw.githubusercontent.com/EvilMelYTT/EvilMelYTT.github.io/refs/heads/main/faviconset/192x192.png" type="image/png">
+  <style>
+    @font-face {
+      font-family: 'Jellee';
+      src: url('https://raw.githubusercontent.com/EvilMelYTT/EvilMelYTT.github.io/refs/heads/main/whenthejelleeisbase64.txt') format('truetype');
+    }
+
+    body {
+      font-family: 'Jellee', sans-serif;
+      padding: 1rem;
+      text-align: center;
+      background: linear-gradient(135deg, #f7f3f0, #f7f3f0);
+      color: #333;
+      transition: background 0.62s ease, color 0.62s ease;
+    }
+
+    body.dark {
+      background: linear-gradient(135deg, #1c1c1c, #1c1c1c);
+      color: #eaeaea;
+      transition: background 0.66s ease, color 0.66s ease;
+    }
+
+    #theme-toggle {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      width: 48px;
+      height: 48px;
+      cursor: pointer;
+      z-index: 10;
+      transition: transform 0.3s ease;
+    }
+
+    #theme-toggle:hover {
+      transform: rotate(10deg) scale(1.05);
+    }
+
+    #theme-icon {
+      width: 100%;
+      height: 100%;
+    }
+
+    #mainWrapper {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 2rem;
+      margin-bottom: 1rem;
+      background: rgba(255, 255, 255, 0.85);
+      border-radius: 1rem;
+      padding: 1rem;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      transition: background 0.3s ease;
+    }
+
+    body.dark #mainWrapper, 
+    body.dark .controls, 
+    body.dark .output {
+      background: rgba(30, 30, 30, 0.9);
+      box-shadow: 0 4px 20px rgba(255,255,255,0.05);
+    }
+
+    #canvasContainer {
+      flex-shrink: 0;
+    }
+
+    canvas {
+      border: 2px solid #999;
+      width: 1000px;
+      height: auto;
+      cursor: crosshair;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
+
+    .colorPreview {
+      text-align: left;
+    }
+
+    .colorRow {
+      display: flex;
+      align-items: center;
+      margin-bottom: 4px;
+      background: #fff;
+      padding: 6px 10px;
+      border-radius: 8px;
+      box-shadow: 0 1px 5px rgba(0,0,0,0.05);
+    }
+
+    body.dark .colorRow {
+      background: #222;
+    }
+
+    .colorSwatch {
+      width: 20px;
+      height: 20px;
+      margin-left: 8px;
+      border: 1px solid #000;
+    }
+
+    .controls, .output {
+      margin-top: 1rem;
+      background: rgba(255, 255, 255, 0.85);
+      border-radius: 1rem;
+      padding: 1rem;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+
+    textarea {
+      width: 100%;
+      height: 100px;
+      max-width: 100%;
+      box-sizing: border-box;
+      border-radius: 0.5rem;
+      padding: 0.75rem;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+    }
+
+    body.dark textarea {
+      background-color: #1e1e1e;
+      color: #f0f0f0;
+      border-color: #555;
+    }
+
+    button {
+      background-color: #f7d9c4;
+      border: none;
+      border-radius: 8px;
+      padding: 0.5rem 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s, transform 0.2s ease;
+    }
+
+    button:hover {
+      background-color: #f4c9ae;
+      transform: translateY(-2px);
+    }
+
+    button:active {
+      transform: translateY(0);
+    }
+
+    .options-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+  </style>
+</head>
+<body>
+  <div id="theme-toggle">
+    <img id="theme-icon" src="https://raw.githubusercontent.com/EvilMelYTT/EvilMelYTT.github.io/refs/heads/main/cream.png" alt="Toggle Theme">
+  </div>
+
+  <h1>Color Picker Formatter</h1>
+  <div>
+    <label><input type="radio" name="inputMode" value="paste" checked> Paste Mode</label>
+    <label><input type="radio" name="inputMode" value="upload"> Upload Mode</label>
+    <input type="file" id="fileInput" style="display: none;">
+    <button id="clearBtn">Clear Image</button>
+  </div>
+
+  <div id="mainWrapper">
+    <div id="canvasContainer">
+      <canvas id="canvas" width="1000" height="800"></canvas>
+    </div>
+    <div class="colorPreview" id="colorPreview"></div>
+  </div>
+
+  <div class="controls">
+    <textarea id="textInput" placeholder="Type your text here..."></textarea>
+    <div class="options-row">
+      <button id="generateBtn">Generate Output</button>
+      <label><input type="checkbox" id="fontToggle" /> Use special font</label>
+      <label><input type="checkbox" id="renameToggle" /> Add /rename prefix</label>
+      <label><input type="checkbox" id="boldToggle" checked /> Include &l</label>
+      <label><input type="checkbox" id="italicToggle" /> Include &o</label>
+      <button id="copyGenerateBtn">Copy and Generate Output</button>
+    </div>
+  </div>
+
+  <h3 style="margin-top: 2rem;">Formatted Output:</h3>
+  <div class="output">
+    <textarea id="output" readonly></textarea>
+    <button id="copyOutputBtn">Copy</button>
+  </div>
+
+  <script>
+    const themeIcon = document.getElementById('theme-icon');
+    let isDark = false;
+
+    document.getElementById('theme-toggle').addEventListener('click', () => {
+      const gifSrc = isDark
+        ? "https://raw.githubusercontent.com/EvilMelYTT/EvilMelYTT.github.io/refs/heads/main/fadetocream.gif"
+        : "https://raw.githubusercontent.com/EvilMelYTT/EvilMelYTT.github.io/refs/heads/main/fadetogray.gif";
+      const finalSrc = isDark
+        ? "https://raw.githubusercontent.com/EvilMelYTT/EvilMelYTT.github.io/refs/heads/main/cream.png"
+        : "https://raw.githubusercontent.com/EvilMelYTT/EvilMelYTT.github.io/refs/heads/main/gray.png";
+
+      themeIcon.src = gifSrc;
+
+      // Immediately switch theme
+      isDark = !isDark;
+      document.body.classList.toggle('dark', isDark);
+
+      // Align final image change with theme transition duration
+      const imgClone = new Image();
+imgClone.src = finalSrc;
+imgClone.onload = () => {
+  themeIcon.src = finalSrc;
+};
+    });
+  // ======== Restored Color Picker Functionality ==========
+
+const fileInput = document.getElementById('fileInput');
+const canvasContainer = document.getElementById('canvasContainer');
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
+const colorPreview = document.getElementById('colorPreview');
+const pickedColors = [];
+
+const modeRadios = document.querySelectorAll('input[name="inputMode"]');
+modeRadios.forEach(radio => {
+  radio.addEventListener('change', () => {
+    const mode = document.querySelector('input[name="inputMode"]:checked').value;
+    if (mode === 'upload') {
+      canvasContainer.classList.add('upload-enabled');
+    } else {
+      canvasContainer.classList.remove('upload-enabled');
+    }
+  });
+});
+
+canvasContainer.addEventListener('click', () => {
+  const mode = document.querySelector('input[name="inputMode"]:checked').value;
+  if (mode === 'upload') fileInput.click();
+});
+
+fileInput.addEventListener('change', (e) => {
+  const file = e.target.files[0];
+  if (file) loadImageFromFile(file);
+});
+
+function loadImageFromFile(file) {
+  const img = new Image();
+  img.onload = () => {
+    canvas.width = img.width;
+    canvas.height = img.height;
+    ctx.drawImage(img, 0, 0);
+    canvasContainer.classList.remove('upload-enabled');
+    document.querySelector('input[name="inputMode"][value="paste"]').checked = true;
+  };
+  img.src = URL.createObjectURL(file);
+}
+
+window.addEventListener('paste', (e) => {
+  const items = e.clipboardData.items;
+  for (let item of items) {
+    if (item.type.indexOf('image') !== -1) {
+      const file = item.getAsFile();
+      loadImageFromFile(file);
+    }
+  }
+});
+
+canvas.addEventListener('click', (e) => {
+  const mode = document.querySelector('input[name="inputMode"]:checked').value;
+  if (mode !== 'paste') return;
+  const rect = canvas.getBoundingClientRect();
+  const scaleX = canvas.width / rect.width;
+  const scaleY = canvas.height / rect.height;
+  const x = Math.floor((e.clientX - rect.left) * scaleX);
+  const y = Math.floor((e.clientY - rect.top) * scaleY);
+  const pixel = ctx.getImageData(x, y, 1, 1).data;
+  const hex = rgbToHex(pixel[0], pixel[1], pixel[2]);
+  pickedColors.push(hex);
+  updateColorPreview();
+});
+
+function rgbToHex(r, g, b) {
+  return '#' + [r, g, b].map(x => x.toString(16).padStart(2, '0')).join('');
+}
+
+function updateColorPreview() {
+  colorPreview.innerHTML = '';
+  pickedColors.forEach((color, index) => {
+    const row = document.createElement('div');
+    row.className = 'colorRow';
+    const code = document.createElement('span');
+    code.textContent = `${index + 1}: ${color}`;
+    const swatch = document.createElement('div');
+    swatch.className = 'colorSwatch';
+    swatch.style.backgroundColor = color;
+
+    const removeBtn = document.createElement('button');
+    removeBtn.textContent = '✕';
+    removeBtn.style.marginLeft = '8px';
+    removeBtn.onclick = () => {
+      pickedColors.splice(index, 1);
+      updateColorPreview();
+    };
+
+    row.appendChild(code);
+    row.appendChild(swatch);
+    row.appendChild(removeBtn);
+    colorPreview.appendChild(row);
+  });
+}
+
+document.getElementById('clearBtn').addEventListener('click', () => {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  pickedColors.length = 0;
+  updateColorPreview();
+
+  const uploadModeRadio = document.querySelector('input[name="inputMode"][value="upload"]');
+  if (uploadModeRadio.checked) {
+    canvasContainer.classList.add('upload-enabled');
+  }
+});
+
+document.getElementById('generateBtn').addEventListener('click', generateOutput);
+
+document.getElementById('copyGenerateBtn').addEventListener('click', () => {
+  generateOutput();
+  const output = document.getElementById('output');
+  output.select();
+  document.execCommand('copy');
+});
+
+document.getElementById('copyOutputBtn').addEventListener('click', () => {
+  const output = document.getElementById('output');
+  output.select();
+  document.execCommand('copy');
+});
+
+function generateOutput() {
+  const inputText = document.getElementById('textInput').value.trim();
+  const addRename = document.getElementById('renameToggle').checked;
+  const useBold = document.getElementById('boldToggle').checked;
+  const useItalic = document.getElementById('italicToggle').checked;
+  const useFont = document.getElementById('fontToggle').checked;
+
+  let result = '';
+
+  const fontMap = {
+    a: 'ᴀ', b: 'ʙ', c: 'ᴄ', d: 'ᴅ', e: 'ᴇ', f: 'ꜰ',
+    g: 'ɢ', h: 'ʜ', i: 'ɪ', j: 'ᴊ', k: 'ᴋ', l: 'ʟ',
+    m: 'ᴍ', n: 'ɴ', o: 'ᴏ', p: 'ᴘ', q: 'ꞯ', r: 'ʀ',
+    s: 'ꜱ', t: 'ᴛ', u: 'ᴜ', v: 'ᴠ', w: 'ᴡ', x: 'x',
+    y: 'ʏ', z: 'ᴢ'
+  };
+  let colorIndex = 0;
+  for (let i = 0; i < inputText.length; i++) {
+    const char = inputText[i];
+    if (char === ' ') {
+      result += ' ';
+      continue;
+    }
+    const color = pickedColors[colorIndex % pickedColors.length];
+    colorIndex++;
+    let code = `${color}`;
+    if (useBold) code += '&l';
+    if (useItalic) code += '&o';
+    let displayChar = char;
+    if (useFont && /[a-z]/i.test(char)) {
+      const lower = char.toLowerCase();
+      displayChar = fontMap[lower] || char;
+    }
+    result += `${code}${displayChar}`;
+  }
+
+  if (addRename) result = `/rename ${result}`;
+
+  document.getElementById('output').value = result;
+}
+</script>
+<div style="margin-top: 3rem; font-size: 0.9rem; color: gray; cursor: pointer;" onclick="document.getElementById('yt-help').style.display = 'block'; this.style.display = 'none';">
+  I'm indian, how do I use this site?
+</div>
+<div id="yt-help" style="display: none; margin-top: 1rem;">
+  <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/JhAJSe-vSYs" title="YouTube video player" frameborder="0" allowfullscreen></iframe>
+</div>
+</body>
+</html>
