@@ -1,20 +1,25 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Color Picker Formatter but ChatGPT'd and Bad</title>
+  <title>Color Picker Formatter but ChatGPT'd, DeepSeeked and Bad</title>
   <link rel="icon" href="https://raw.githubusercontent.com/EvilMelYTT/EvilMelYTT.github.io/refs/heads/main/faviconset/192x192.png" type="image/png">
   <style>
     @font-face {
       font-family: 'Jellee';
       src: url('https://raw.githubusercontent.com/EvilMelYTT/EvilMelYTT.github.io/refs/heads/main/whenthejelleeisbase64.txt') format('truetype');
     }
-
-    body {
-      font-family: 'Jellee', sans-serif;
-      padding: 1rem;
+    @font-face {
+    font-family: 'Minecraft';
+    src: url('assets/mcui/fonts/minecraft.woff') format('woff'),
+         url('assets/mcui/fonts/minecraft.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+ body {
+  font-family: 'Minecraft', 'Jellee', sans-serif;
+  padding: 1rem;
       text-align: center;
       background: linear-gradient(135deg, #f7f3f0, #f7f3f0);
       color: #333;
@@ -60,8 +65,8 @@
       transition: background 0.3s ease;
     }
 
-    body.dark #mainWrapper, 
-    body.dark .controls, 
+    body.dark #mainWrapper,
+    body.dark .controls,
     body.dark .output {
       background: rgba(30, 30, 30, 0.9);
       box-shadow: 0 4px 20px rgba(255,255,255,0.05);
@@ -156,9 +161,196 @@
       flex-wrap: wrap;
       gap: 0.5rem;
     }
+
+.modal-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 1000;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  width: 80%;
+  max-width: 500px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+}
+
+body.dark .modal-content {
+  background: rgba(30, 30, 30, 0.95);
+  box-shadow: 0 4px 20px rgba(255,255,255,0.1);
+}
+
+.rename-list {
+  margin: 1rem 0;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+}
+
+.rename-item {
+  background: rgba(255, 255, 255, 0.3);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow:
+    0 2px 6px rgba(0, 0, 0, 0.15),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.8);
+}
+
+body.dark .rename-item {
+  background: rgba(50, 50, 50, 0.7);
+}
+
+.rename-item:hover {
+  background: rgba(247, 217, 196, 0.6) !important;
+  transform: translateY(-1px);
+}
+
+body.dark .rename-item:hover {
+  background: #555;
+}
+
+.rename-item span {
+
+  text-shadow: none;
+}
+
+
+.rename-item span[style*="color: #fff"],
+.rename-item span[style*="color: #ffffff"],
+.rename-item span[style*="color: #fcfcfc"],
+.rename-item span[style*="color: rgb(255, 255, 255)"],
+.rename-item span[style*="color: rgb(252, 252, 252)"],
+.rename-item span[style*="color: rgba(255, 255, 255"],
+.rename-item span[style*="color: rgba(252, 252, 252"],
+.rename-item span[style*="color: rgb(255, 255, 85)"],
+.rename-item span[style*="color: rgba(255, 255, 85"] {
+  text-shadow:
+    0 0 3px rgba(0, 0, 0, 0.7),
+    0 0 6px rgba(0, 0, 0, 0.5);
+}
+
+
+body.dark .rename-item span[style*="color: #fff"],
+body.dark .rename-item span[style*="color: #ffffff"],
+body.dark .rename-item span[style*="color: #fcfcfc"],
+body.dark .rename-item span[style*="color: rgb(255, 255, 255)"],
+body.dark .rename-item span[style*="color: rgb(252, 252, 252)"],
+body.dark .rename-item span[style*="color: rgba(255, 255, 255"],
+body.dark .rename-item span[style*="color: rgba(252, 252, 252"],
+body.dark .rename-item span[style*="color: rgb(255, 255, 85)"],
+body.dark .rename-item span[style*="color: rgba(255, 255, 85"] {
+  text-shadow:
+    0 0 4px rgba(0, 0, 0, 0.9),
+    0 0 8px rgba(0, 0, 0, 0.7);
+}
+
+
+.modal-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 1000;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  width: 80%;
+  max-width: 500px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+}
+
+body.dark .modal-content {
+  background: rgba(30, 30, 30, 0.95);
+  box-shadow: 0 4px 20px rgba(255,255,255,0.1);
+}
+
+.rename-list {
+  margin: 1rem 0;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+}
+
+.rename-item {
+  background: rgba(255,255,255,0.7);
+  padding: 0.75rem;
+  margin-bottom: 0.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+body.dark .rename-item {
+  background: rgba(50, 50, 50, 0.7);
+}
+
+.rename-item:hover {
+  background: #f7d9c4;
+}
+
+body.dark .rename-item:hover {
+  background: #555;
+}
+.rename-category {
+  margin-bottom: 1.5rem;
+}
+
+.rename-header {
+  font-weight: bold;
+  padding: 0.75rem;
+  margin-bottom: 0.5rem;
+  border-radius: 8px;
+  background: rgba(255,255,255,0.2);
+  text-align: center;
+  cursor: default;
+  transition: all 0.2s ease;
+  color: #55FFFF;
+}
+
+body.dark .rename-header {
+  background: rgba(50,50,50,0.4);
+  color: #55FFFF;
+}
+
+.rename-items {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
   </style>
+   <link rel="stylesheet" href="assets/mcui/css/mcui.css">
+  <link rel="stylesheet" href="assets/mcui/css/load.php.css">
 </head>
 <body>
+  <button id="renamePageBtn" style="position: absolute; top: 10px; right: 10px; background-color: #e0e0e0; color: #333; padding: 0.5rem 1rem; border-radius: 8px; font-weight: bold; z-index: 10; cursor: pointer;">
+    Personally Used Renames
+  </button>
   <div id="theme-toggle">
     <img id="theme-icon" src="https://raw.githubusercontent.com/EvilMelYTT/EvilMelYTT.github.io/refs/heads/main/cream.png" alt="Toggle Theme">
   </div>
@@ -184,8 +376,9 @@
       <button id="generateBtn">Generate Output</button>
       <label><input type="checkbox" id="fontToggle" /> Use special font</label>
       <label><input type="checkbox" id="renameToggle" /> Add /rename prefix</label>
-      <label><input type="checkbox" id="boldToggle" checked /> Include &l</label>
-      <label><input type="checkbox" id="italicToggle" /> Include &o</label>
+    <label><input type="checkbox" id="boldToggle" checked /> Include &amp;l</label>
+    <label><input type="checkbox" id="italicToggle" /> Include &amp;o</label>
+
       <button id="copyGenerateBtn">Copy and Generate Output</button>
     </div>
   </div>
@@ -210,18 +403,18 @@
 
       themeIcon.src = gifSrc;
 
-      // Immediately switch theme
+
       isDark = !isDark;
       document.body.classList.toggle('dark', isDark);
 
-      // Align final image change with theme transition duration
+
       const imgClone = new Image();
 imgClone.src = finalSrc;
 imgClone.onload = () => {
   themeIcon.src = finalSrc;
 };
     });
-  // ======== Restored Color Picker Functionality ==========
+
 
 const fileInput = document.getElementById('fileInput');
 const canvasContainer = document.getElementById('canvasContainer');
@@ -384,12 +577,394 @@ function generateOutput() {
 
   document.getElementById('output').value = result;
 }
+document.addEventListener('DOMContentLoaded', function() {
+  const renamePageBtn = document.getElementById('renamePageBtn');
+  const renameModal = document.getElementById('renameModal');
+  const closeModalBtn = document.getElementById('closeModalBtn');
+
+  // Check if elements exist
+  if (!renamePageBtn || !renameModal || !closeModalBtn) {
+    console.error("Required elements not found!");
+    return;
+  }
+
+  const renameCategories = {
+    spaceCrate: [
+"#9dbaff&lꜱ#95c0fb&lᴘ#8dc6f7&lᴀ#86cbf3&lᴄ#7ed1ef&lᴇ #76d7eb&lᴄ#6edde7&lʀ#66e2e3&lᴀ#5ee8df&lᴛ#57eedb&lᴇ #4ff4d7&lᴋ#47f9d3&lᴇ#3fffcf&lʏ",
+      "#6d2cfc&lᴄ#814afc&lᴏ#9568fc&lꜱ#aa85fc&lᴍ#bfa3fc&lɪ#d3c1fc&lᴄ #e7defc&lᴛ&f&lᴀ#fce5e5&lɢ #fccece&lʙ#fcb7b7&lᴜ#fc9f9f&lɴ#fc8888&lᴅ#fc7171&lʟ#fc5a5a&lᴇ",
+      "&5&lᴀ&lʟ&lᴘ&lʜ&lᴀ &lʀ&lᴀ&lɴ&lᴋ &lᴠ&lᴏ&lᴜ&lᴄ&lʜ&lᴇ&lʀ",
+      "&6&lᴏ&lᴍ&lᴇ&lɢ&lᴀ &lʀ&lᴀ&lɴ&lᴋ &lᴠ&lᴏ&lᴜ&lᴄ&lʜ&lᴇ&lʀ",
+      "&4&lᴜ&lʟ&lᴛ&lɪ&lᴍ&lᴀ&lᴛ&lᴇ &lʀ&lᴀ&lɴ&lᴋ &lᴠ&lᴏ&lᴜ&lᴄ&lʜ&lᴇ&lʀ",
+      "#7a37eb&lᴄ#7e4bed&lᴏ#805fef&lꜱ#8472f0&lᴍ#8785f2&lɪ#8b99f4&lᴄ #8eadf6&lᴄ#92c1f8&lᴏ#96d3f9&lꜱ#99e7fb&lᴍ#9feaf4&lᴇ#a8dce5&lᴛ#b0ced6&lɪ#b9c0c7&lᴄ #c1b2b8&lʙ#caa4a8&lᴜ#d19699&lɴ#da878a&lᴅ#e27a7b&lʟ#eb6c6c&lᴇ",
+      "#fcfcfc&l© #fcfcfc&lO#fcfcfc&lp#fcfcfc&lL#fcfcfc&li#fcfcfc&lf#fcfcfc&le#fcfcfc&ls#fcfcfc&lt#fcfcfc&le#fcfcfc&la#fcfcfc&ll #fcfcfc&lI#fcfcfc&lr#fcfcfc&lo#fcfcfc&ln #a8a8a8(#a8a8a82#a8a8a80#a8a8a80#a8a8a80#a8a8a8)",
+      "#99fcf5&lɢ#a7e7f2&lᴀ#b6d3ee&lʟ#c4bfeb&lᴀ#d1abe8&lᴄ#df96e5&lᴛ#ee82e1&lɪ#fc6ede&lᴄ #ee82e1&lᴛ#df96e5&lᴏ#d1abe8&lᴏ#c4bfeb&lʟ#b6d3ee&lʙ#a7e7f2&lᴏ#99fcf5&lx",
+      "#db64fc&lꜱ#d975fc&lɪ#d785fc&lʟ#d496fc&lᴋ#d2a7fc&lʏ #d1b8fc&lɢ#cfc9fc&lᴀ#ccd9fc&lʟ#caeafc&lᴀ#c1f3f3&lx#b2f4e2&lʏ #a2f5d1&lᴄ#93f6c1&lʀ#84f7b0&lᴜ#75f89f&lꜱ#66f88e&lʜ#56f97e&lᴇ#47fa6d&lʀ",
+      "#b78f8f&lꜱ#c09e9e&lᴛ#caacac&lᴀ#d2bbbb&lʀ #dbcaca&lᴅ#e5d7d7&lʀ#eee6e6&lɪ#f7f5f5&lʟ#f6f4f4&lʟ #eae3e3&lꜰ#dfd3d3&lᴏ#d3c3c3&lʀ#c8b3b3&lᴛ#bca2a2&lᴜ#b19292&lɴ#a58181&lᴇ",
+      "&c&lL&le&lv&le&ll &lS&lk&li&lp &lR&le&lw&la&lr&ld",
+      "#a2185c&lʙ#5384ac&lᴇ#04f0fc&lᴀ#5384ac&lꜱ#a2185c&lᴛ #fcfcfcS#fcfcfcp#fcfcfce#fcfcfcc#fcfcfci#fcfcfca#fcfcfcl #fcfcfcS#fcfcfce#fcfcfct",
+      "#b5fcd1&lᴍ#90fcab&lɪ#6cfc84&lʀ#67fc89&lʀ#7ffcba&lᴏ#99fce9&lʀ #fcfcfcS#fcfcfcp#fcfcfce#fcfcfcc#fcfcfci#fcfcfca#fcfcfcl #fcfcfcS#fcfcfce#fcfcfct",
+      "#fc2020&lᴡ#fc1749&lᴀ#fc0d73&lʀ#fc049c&lʀ#fc0d73&lɪ#fc1749&lᴏ#fc2020&lʀ #fcfcfcS#fcfcfcp#fcfcfce#fcfcfcc#fcfcfci#fcfcfca#fcfcfcl #fcfcfcS#fcfcfce#fcfcfct",
+      "&6&lꜱ&lᴜ&lᴘ&lᴇ&lʀ &lʟ&lᴇ&lᴠ&lᴇ&lʟ &lꜱ&lᴋ&lɪ&lᴘ &lʀ&lᴇ&lᴡ&lᴀ&lʀ&lᴅ",
+      "#5ddbebᴄ#62dee1ᴇ#67e1d7ʟ#6ce4ceᴇ#71e7c4ꜱ#76eabaᴛ#7aedb1ɪ#7ef0a7ᴀ#83f39dʟ #88f693ʙ#8df989ᴏ#92fc7fᴡ",
+      "#4d06ebʟ#5d0ed9ɪ#6c16c8ɢ#7c1eb7ʜ#8a26a5ᴛ#9a2d93ꜱ#a93581ᴀ#b93d71ʙ#c8455fᴇ#d74d4dʀ",
+      "#5c62d7&lᴀ#7968c8&lʟ#966eb9&lɪ#b374a9&lᴇ#d17a99&lɴ #ed7f8a&lᴘ#ed7f8a&lᴇ#d17a99&lᴛ #b374a9&lᴄ#966eb9&lᴀ#7968c8&lɢ#5c62d7&lᴇ",
+      "#fc0000&lᴏ#fc3200&lᴘ #fc6500&lᴛ#fc9700&lᴏ#fcca00&lᴛ#fcfc00&lᴇ#97fc00&lᴍ #32fc00&lᴏ#00ca32&lꜰ #006597&lᴜ#0000fc&lɴ#1e00cb&lᴅ#3b0099&lʏ#590090&lɪ#7600b1&lɴ#9200d1&lɢ",
+      "#2a29d7&lᴀ#2e3cd0&lꜱ#3451c7&lᴛ#3965bf&lʀ#3e7ab7&lᴏ#448daf&lɴ#49a1a6&lᴀ#4eb69e&lᴜ#54ca96&lᴛ #59dd8d&lʜ#5ef285&lᴇ#67f77c&lʟ#72ec71&lᴘ#7ee266&lᴇ#88d85b&lʀ#93ce50&lꜱ #9fc445&lʙ#aaba3a&lᴜ#b6af2e&lɴ#c1a524&lᴅ#cd9a19&lʟ#d7900e&lᴇ",
+      "#ebb6abᴛ#eab3c0ʜ#e8afd3ᴏ#e7ace8ʀ#e5a8fc'#e7ace8ꜱ #e8afd3ᴀ#eab3c0x#ebb6abᴇ",
+      "#9bb8fc&lᴀ#96bcf9&lʟ#91bff7&lɪ#8cc3f4&lᴇ#87c7f2&lɴ #82caef&lꜱ#7eceed&lᴘ#79d1ea&lᴀ#74d4e8&lᴡ#6fd8e5&lɴ#6bdbe3&lᴇ#66dfe0&lʀ #61e3de&lʙ#5ce6db&lʟ#57ead9&lᴇ#52edd6&lꜱ#4df1d4&lꜱ#48f5d1&lɪ#43f8d0&lɴ#3efccd&lɢ",
+      "&a&lR&le&lv&li&lv&la&ll &lB&lo&ln&le",
+      "&a&lS&le&ll&ll&lw&la&ln&ld",
+      "#b2f5fc&lA&ls&lc&le&ln&ls&li&lo&ln #83e4f3&lR&la&ln&lk&lu&lp #54d3e9&lV&lo&lu&lc&lh&le&lr",
+      "&5#fc7676&lᴛ#f1749c&lʜ#e671c3&lᴇ #db6fe9&lᴅ#db6fe9&lʀ#e671c3&lɪ#f1749c&lʟ#fc7676&lʟ",
+      "&5&lS&lp&la&lc&le &lS&lt&la&lt &lT&lr&la&lc&lk &lT&lo&lk&le&ln",
+      "&a&lK&li&ll&ll &lT&lr&la&lc&lk&le&lr"
+    ],
+    godly: [
+       "&a&l+ &2$&a&l40.000",
+        "&a&l+ &2$&a&l45.000",
+        "&a&l+ &2$&a&l50.000",
+        "&6&l+5 ᴀᴜᴄᴛɪᴏɴ ꜱʟᴏᴛꜱ&f&lᴠᴏᴜᴄʜᴇʀ",
+        "&4&lɢᴏᴅʟʏ ᴘɪᴄᴋᴀxᴇ",
+        "&4&lɢᴏᴅʟʏ ᴀxᴇ",
+        "&4&lɢᴏᴅʟʏ ꜱʜᴏᴠᴇʟ",
+        "&4&lɢᴏᴅʟʏ ʜᴇʟᴍᴇᴛ",
+        "&4&lɢᴏᴅʟʏ ᴄʜᴇꜱᴛᴘʟᴀᴛᴇ",
+        "&4&lɢᴏᴅʟʏ ʟᴇɢɢɪɴɢꜱ",
+        "&4&lɢᴏᴅʟʏ ʙᴏᴏᴛꜱ",
+        "&4&lɢᴏᴅʟʏ ꜱᴡᴏʀᴅ",
+        "&4&lɢᴏᴅʟʏ ᴛʀɪᴅᴇɴᴛ",
+        "&4&lɢᴏᴅʟʏ ᴄʀᴏꜱꜱʙᴏᴡ",
+        "&c&l+10 Hearts",
+        "&b&lExperience Booster &8(&72x, 30 Minutes Personal)",
+        "&aMoney Booster &8(&72x, 30 Minutes, Personal)",
+        "&6&lSafari Net &7(Empty)",
+        "&6&lSpawner Wrench",
+        "&5&lʙᴇᴛᴀ ᴋɪᴛ ᴠᴏᴜᴄʜᴇʀ",
+        "&4&lᴀʟᴘʜᴀ ᴋɪᴛ ᴠᴏᴜᴄʜᴇʀ",
+        "&6&lᴏᴍᴇɢᴀ ᴋɪᴛ ᴠᴏᴜᴄʜᴇʀ",
+        "&3&lCondense Command Voucher",
+        "&b&l+5 Homes",
+        "&a&l+5 PlayerVaults &fVoucher",
+        "&a&lFix All Command Voucher",
+        "&3&lLegendary Cauldron Pet",
+        "&b&lM&e&ly&c&ls&6&lt&b&le&e&lr&c&ly &f&lKey Box",
+        "&b&lM&e&ly&c&ls&6&lt&b&le&e&lr&c&ly &f&lRank Box",
+        "#91e451&lᴇ#85e55e&lᴘ#7ae66b&lɪ#7ae66b&lᴄ #8ce456&lᴄ#8ce456&lʀ#83e560&lᴀ#7be66a&lᴛ#76e66f&lᴇ #7fe565&lᴋ#88e55b&lᴇ#91e451&lʏ",
+        "#e9f83f&lᴜ#eff340&lɴ#f6ee41&lɪ#f6ee41&lꞯ#fce942&lᴜ#f6ee41&lᴇ #eff340&lᴄ#e9f83f&lʀ#eff340&lᴀ#f6ee41&lᴛ#fce942&lᴇ #f6ee41&lᴋ#eff340&lᴇ#e9f83f&lʏ",
+        "#c92c2c&lɢ#c92c2c&lᴏ#dd3939&lᴅ#f24646&lʟ#f24646&lʏ #f24646&lᴄ#dd3939&lʀ#c92c2c&lᴀ#dd3939&lᴛ#f24646&lᴇ #f24646&lᴋ#dd3939&lᴇ#c92c2c&lʏ",
+        "&3&lLegendary Mole Pet",
+        "&e&lUnique Crate Key ALL Voucher",
+        "&a&lꜱᴇᴀꜱᴏɴᴀʟ ʙᴇᴛᴀ ʀᴀɴᴋ ᴠᴏᴜᴄʜᴇʀ",
+        "&3&lLegendary Beaver Pet",
+        "&5&lꜱᴇᴀꜱᴏɴᴀʟ ᴀʟᴘʜᴀ ʀᴀɴᴋ ᴠᴏᴜᴄʜᴇʀ",
+        "&a&lʙᴇᴛᴀ ʀᴀɴᴋ ᴠᴏᴜᴄʜᴇʀ"
+
+    ],
+    unique: [
+       "&a&l+ &2$&a&l30.000",
+        "&a&l+ &2$&a&l35.000",
+        "&a&l+ &2$&a&l40.000",
+        "&6&l+3 ᴀᴜᴄᴛɪᴏɴ ꜱʟᴏᴛꜱ&f&lᴠᴏᴜᴄʜᴇʀ",
+        "&e&lᴜɴɪꞯᴜᴇ ᴘɪᴄᴋᴀxᴇ",
+        "&e&lᴜɴɪꞯᴜᴇ ᴀxᴇ",
+        "&e&lᴜɴɪꞯᴜᴇ ꜱʜᴏᴠᴇʟ",
+        "&e&lᴜɴɪꞯᴜᴇ ʜᴇʟᴍᴇᴛ",
+        "&e&lᴜɴɪꞯᴜᴇ ᴄʜᴇꜱᴛᴘʟᴀᴛᴇ",
+        "&e&lᴜɴɪꞯᴜᴇ ʟᴇɢɢɪɴɢꜱ",
+        "&e&lᴜɴɪꞯᴜᴇ ʙᴏᴏᴛꜱ",
+        "&e&lᴜɴɪꞯᴜᴇ ꜱᴡᴏʀᴅ",
+        "&e&lᴜɴɪꞯᴜᴇ ᴛʀɪᴅᴇɴᴛ",
+        "&e&lᴜɴɪꞯᴜᴇ ᴄʀᴏꜱꜱʙᴏᴡ",
+        "&aMoney Booster &8(&71.75x, 30 Minutes, Personal)",
+        "&d&lRare Pet Bundle",
+        "&c&l+7 Hearts",
+        "&3&lCondense Command Voucher",
+        "&b&lExperience Booster &8(&71.75x, 30 Minutes Personal)",
+        "&6&lSafari Net &7(Empty)",
+        "&2&lɢᴀᴍᴍᴀ ᴋɪᴛ ᴠᴏᴜᴄʜᴇʀ",
+        "&5&lʙᴇᴛᴀ ᴋɪᴛ ᴠᴏᴜᴄʜᴇʀ",
+        "&b&lM&e&ly&c&ls&6&lt&b&le&e&lr&c&ly &f&lKey Box",
+        "&b&lM&e&ly&c&ls&6&lt&b&le&e&lr&c&ly &f&lRank Box",
+        "&a&lFix Command Voucher",
+        "&a&l+3 PlayerVaults &fVoucher",
+        "&6&lSpawner Wrench",
+        "&e&lUnique Crate Key ALL Voucher",
+        "&b&l+3 Homes",
+        "#91e451&lᴇ#85e55e&lᴘ#7ae66b&lɪ#7ae66b&lᴄ #8ce456&lᴄ#8ce456&lʀ#83e560&lᴀ#7be66a&lᴛ#76e66f&lᴇ #7fe565&lᴋ#88e55b&lᴇ#91e451&lʏ",
+        "#e9f83f&lᴜ#eff340&lɴ#f6ee41&lɪ#f6ee41&lꞯ#fce942&lᴜ#f6ee41&lᴇ #eff340&lᴄ#e9f83f&lʀ#eff340&lᴀ#f6ee41&lᴛ#fce942&lᴇ #f6ee41&lᴋ#eff340&lᴇ#e9f83f&lʏ",
+        "#c92c2c&lɢ#c92c2c&lᴏ#dd3939&lᴅ#f24646&lʟ#f24646&lʏ #f24646&lᴄ#dd3939&lʀ#c92c2c&lᴀ#dd3939&lᴛ#f24646&lᴇ #f24646&lᴋ#dd3939&lᴇ#c92c2c&lʏ",
+        "&a&lꜱᴇᴀꜱᴏɴᴀʟ ɢᴀᴍᴍᴀ ʀᴀɴᴋ ᴠᴏᴜᴄʜᴇʀ",
+        "&5&lꜱᴇᴀꜱᴏɴᴀʟ ʙᴇᴛᴀ ʀᴀɴᴋ ᴠᴏᴜᴄʜᴇʀ",
+        "&a&lɢᴀᴍᴍᴀ ʀᴀɴᴋ ᴠᴏᴜᴄʜᴇʀ"
+    ],
+    party: [
+        "#29f8c7&lᴠ#29f8c7&lᴏ#2ce1bc&lᴛ#30cbb2&lɪ#32c0ad&lɴ#32c0ad&lɢ #2ed6b7&lᴄ#2aedc2&lʀ#2aedc2&lᴀ#2ed6b7&lᴛ#32c0ad&lᴇ #30cbb2&lᴋ#2ce1bc&lᴇ#29f8c7&lʏ",
+        "#91e451&lᴇ#85e55e&lᴘ#7ae66b&lɪ#7ae66b&lᴄ #8ce456&lᴄ#8ce456&lʀ#83e560&lᴀ#7be66a&lᴛ#76e66f&lᴇ #7fe565&lᴋ#88e55b&lᴇ#91e451&lʏ",
+        "#e9f83f&lᴜ#eff340&lɴ#f6ee41&lɪ#f6ee41&lꞯ#fce942&lᴜ#f6ee41&lᴇ #eff340&lᴄ#e9f83f&lʀ#eff340&lᴀ#f6ee41&lᴛ#fce942&lᴇ #f6ee41&lᴋ#eff340&lᴇ#e9f83f&lʏ",
+        "#c92c2c&lɢ#c92c2c&lᴏ#dd3939&lᴅ#f24646&lʟ#f24646&lʏ #f24646&lᴄ#dd3939&lʀ#c92c2c&lᴀ#dd3939&lᴛ#f24646&lᴇ #f24646&lᴋ#dd3939&lᴇ#c92c2c&lʏ",
+        "#9dbaff&lꜱ#95c0fb&lᴘ#8dc6f7&lᴀ#86cbf3&lᴄ#7ed1ef&lᴇ #76d7eb&lᴄ#6edde7&lʀ#66e2e3&lᴀ#5ee8df&lᴛ#57eedb&lᴇ #4ff4d7&lᴋ#47f9d3&lᴇ#3fffcf&lʏ"
+    ],
+    epic: [
+       "&a&l+ &2$&a&l20.000",
+        "&a&l+ &2$&a&l25.000",
+        "&a&l+ &2$&a&l30.000",
+        "&6&l+2 ᴀᴜᴄᴛɪᴏɴ ꜱʟᴏᴛꜱ&f&lᴠᴏᴜᴄʜᴇʀ",
+        "#91e451&lᴇᴘɪᴄ ᴘɪᴄᴋᴀxᴇ",
+        "#91e451&lᴇᴘɪᴄ ᴀxᴇ",
+        "#91e451&lᴇᴘɪᴄ ꜱʜᴏᴠᴇʟ",
+        "#91e451&lᴇᴘɪᴄ ʜᴇʟᴍᴇᴛ",
+        "#91e451&lᴇᴘɪᴄ ᴄʜᴇꜱᴛᴘʟᴀᴛᴇ",
+        "#91e451&lᴇᴘɪᴄ ʟᴇɢɢɪɴɢꜱ",
+        "#91e451&lᴇᴘɪᴄ ʙᴏᴏᴛꜱ",
+        "#91e451&lᴇᴘɪᴄ ꜱᴡᴏʀᴅ",
+        "#91e451&lᴇᴘɪᴄ ʙᴏᴡ",
+        "#91e451&lᴇᴘɪᴄ ᴄʀᴏꜱꜱʙᴏᴡ",
+        "&d&lRare Pet Bundle",
+        "&aMoney Booster &8(&71.5x, 30 Minutes, Personal)",
+        "&c&l+5 Hearts",
+        "&3&lCondense Command Voucher",
+        "&b&lExperience Booster &8(&71.25x, 30 Minutes Personal)",
+        "&6&lSafari Net &7(Empty)",
+        "&2&lᴘʀᴏᴛᴏɴ ᴋɪᴛ ᴠᴏᴜᴄʜᴇʀ",
+        "&5&lɢᴀᴍᴍᴀ ᴋɪᴛ ᴠᴏᴜᴄʜᴇʀ",
+        "&eNick Command Voucher",
+        "&a&lFix Command Voucher",
+        "&aEpic Crate Key ALL Voucher",
+        "&a&l+2 PlayerVaults &fVoucher",
+        "&b&l+2 Homes",
+        "&6&lSpawner Wrench",
+        "#29f8c7&lᴠ#29f8c7&lᴏ#2ce1bc&lᴛ#30cbb2&lɪ#32c0ad&lɴ#32c0ad&lɢ #2ed6b7&lᴄ#2aedc2&lʀ#2aedc2&lᴀ#2ed6b7&lᴛ#32c0ad&lᴇ #30cbb2&lᴋ#2ce1bc&lᴇ#29f8c7&lʏ",
+        "#91e451&lᴇ#85e55e&lᴘ#7ae66b&lɪ#7ae66b&lᴄ #8ce456&lᴄ#8ce456&lʀ#83e560&lᴀ#7be66a&lᴛ#76e66f&lᴇ #7fe565&lᴋ#88e55b&lᴇ#91e451&lʏ",
+        "#e9f83f&lᴜ#eff340&lɴ#f6ee41&lɪ#f6ee41&lꞯ#fce942&lᴜ#f6ee41&lᴇ #eff340&lᴄ#e9f83f&lʀ#eff340&lᴀ#f6ee41&lᴛ#fce942&lᴇ #f6ee41&lᴋ#eff340&lᴇ#e9f83f&lʏ",
+        "&a&lꜱᴇᴀꜱᴏɴᴀʟ ᴘʀᴏᴛᴏɴ ʀᴀɴᴋ ᴠᴏᴜᴄʜᴇʀ",
+        "&5&lꜱᴇᴀꜱᴏɴᴀʟ ɢᴀᴍᴍᴀ ʀᴀɴᴋ ᴠᴏᴜᴄʜᴇʀ",
+        "&a&lᴘʀᴏᴛᴏɴ ʀᴀɴᴋ ᴠᴏᴜᴄʜᴇʀ"
+    ],
+    vote: [
+       "&a&l+ &2$&a&l15.000",
+        "&a&l+ &2$&a&l20.000",
+        "&a&l+ &2$&a&l25.000",
+        "&6&l+1 ᴀᴜᴄᴛɪᴏɴ ꜱʟᴏᴛꜱ&f&lᴠᴏᴜᴄʜᴇʀ",
+        "#29f8c7&lᴠᴏᴛᴇ ᴘɪᴄᴋᴀxᴇ",
+        "#29f8c7&lᴠᴏᴛᴇ ᴀxᴇ",
+        "#29f8c7&lᴠᴏᴛᴇ ꜱʜᴏᴠᴇʟ",
+        "#29f8c7&lᴠᴏᴛᴇ ʜᴇʟᴍᴇᴛ",
+        "#29f8c7&lᴠᴏᴛᴇ ᴄʜᴇꜱᴛᴘʟᴀᴛᴇ",
+        "#29f8c7&lᴠᴏᴛᴇ ʟᴇɢɢɪɴɢꜱ",
+        "#29f8c7&lᴠᴏᴛᴇ ʙᴏᴏᴛꜱ",
+        "#29f8c7&lᴠᴏᴛᴇ ꜱᴡᴏʀᴅ",
+        "#29f8c7&lᴠᴏᴛᴇ ʙᴏᴡ",
+        "#29f8c7&lᴠᴏᴛᴇ ᴄʀᴏꜱꜱʙᴏᴡ",
+        "&aMoney Booster &8(&71.25x, 30 Minutes, Personal)",
+        "&c&l+3 Hearts",
+        "&b&lExperience Booster &8(&71.25x, 30 Minutes Personal)",
+        "&eNick Command Voucher",
+        "&6&lSafari Net &7(Empty)",
+        "&2&lɴᴇᴜᴛʀᴏɴ ᴋɪᴛ ᴠᴏᴜᴄʜᴇʀ",
+        "&5&lᴘʀᴏᴛᴏɴ ᴋɪᴛ ᴠᴏᴜᴄʜᴇʀ",
+        "&d&lWorkbench Command Voucher",
+        "&aEpic Crate Key ALL Voucher",
+        "&a&l+1 PlayerVaults &fVoucher",
+        "&b&l+1 Homes",
+        "&e&lExtinguish Command &f&lVoucher",
+        "&a&lSeasonal Fix Command Voucher",
+        "#29f8c7&lᴠ#29f8c7&lᴏ#2ce1bc&lᴛ#30cbb2&lɪ#32c0ad&lɴ#32c0ad&lɢ #2ed6b7&lᴄ#2aedc2&lʀ#2aedc2&lᴀ#2ed6b7&lᴛ#32c0ad&lᴇ #30cbb2&lᴋ#2ce1bc&lᴇ#29f8c7&lʏ",
+        "#91e451&lᴇ#85e55e&lᴘ#7ae66b&lɪ#7ae66b&lᴄ #8ce456&lᴄ#8ce456&lʀ#83e560&lᴀ#7be66a&lᴛ#76e66f&lᴇ #7fe565&lᴋ#88e55b&lᴇ#91e451&lʏ",
+        "&a&lꜱᴇᴀꜱᴏɴᴀʟ ɴᴇᴜᴛʀᴏɴ  ʀᴀɴᴋ ᴠᴏᴜᴄʜᴇʀ",
+        "&5&lꜱᴇᴀꜱᴏɴᴀʟ ᴘʀᴏᴛᴏɴ ʀᴀɴᴋ ᴠᴏᴜᴄʜᴇʀ",
+        "&a&lɴᴇᴜᴛʀᴏɴ ʀᴀɴᴋ ᴠᴏᴜᴄʜᴇʀ"
+    ]
+  };
+
+function renderMinecraftText(rawText) {
+  const container = document.createElement('div');
+  let currentSpan = document.createElement('span');
+  container.appendChild(currentSpan);
+
+  let color = '';
+  let bold = false;
+  let italic = false;
+  let underline = false;
+  let strikethrough = false;
+  let magic = false;
+
+  for (let i = 0; i < rawText.length; i++) {
+    if (rawText[i] === '&' && i + 1 < rawText.length) {
+      if (currentSpan.textContent !== '') {
+        currentSpan = document.createElement('span');
+        container.appendChild(currentSpan);
+      }
+
+      const code = rawText[i + 1].toLowerCase();
+      i++; // Skip the format code character
+
+      switch(code) {
+        case '0': color = '#000000'; break;
+        case '1': color = '#0000AA'; break;
+        case '2': color = '#00AA00'; break;
+        case '3': color = '#00AAAA'; break;
+        case '4': color = '#AA0000'; break;
+        case '5': color = '#AA00AA'; break;
+        case '6': color = '#FFAA00'; break;
+        case '7': color = '#AAAAAA'; break;
+        case '8': color = '#555555'; break;
+        case '9': color = '#5555FF'; break;
+        case 'a': color = '#55FF55'; break;
+        case 'b': color = '#55FFFF'; break;
+        case 'c': color = '#FF5555'; break;
+        case 'd': color = '#FF55FF'; break;
+        case 'e': color = '#FFFF55'; break;
+        case 'f': color = '#FFFFFF'; break;
+        case 'l': bold = true; break;
+        case 'o': italic = true; break;
+        case 'n': underline = true; break;
+        case 'm': strikethrough = true; break;
+        case 'k': magic = true; break;
+        case 'r':
+          color = '';
+          bold = false;
+          italic = false;
+          underline = false;
+          strikethrough = false;
+          magic = false;
+          break;
+      }
+
+      if (color) currentSpan.style.color = color;
+      currentSpan.style.fontWeight = bold ? 'bold' : 'normal';
+      currentSpan.style.fontStyle = italic ? 'italic' : 'normal';
+
+      let textDecoration = [];
+      if (underline) textDecoration.push('underline');
+      if (strikethrough) textDecoration.push('line-through');
+      currentSpan.style.textDecoration = textDecoration.join(' ') || 'none';
+
+      if (magic) currentSpan.classList.add('magic-text');
+
+    } else if (rawText[i] === '#' && i + 6 < rawText.length) {
+      const hexMatch = rawText.substr(i, 7).match(/^#[0-9A-Fa-f]{6}/);
+      if (hexMatch) {
+        if (currentSpan.textContent !== '') {
+          currentSpan = document.createElement('span');
+          container.appendChild(currentSpan);
+        }
+        color = hexMatch[0];
+        currentSpan.style.color = color;
+        i += 6;
+      } else {
+        currentSpan.textContent += rawText[i];
+      }
+    } else {
+      currentSpan.textContent += rawText[i];
+    }
+  }
+
+  return container; // NOW it's in the right place!
+}
+
+  // Button click handler
+  renamePageBtn.addEventListener('click', function() {
+    console.log("Button clicked"); // Debugging
+
+    // Clear all containers first
+    document.querySelectorAll('.rename-items').forEach(container => {
+      container.innerHTML = '';
+    });
+
+    // Populate each category
+    for (const [category, renames] of Object.entries(renameCategories)) {
+      const container = document.getElementById(`${category}Items`);
+      if (!container) {
+        console.error(`Container not found for ${category}`);
+        continue;
+      }
+
+      renames.forEach(rawText => {
+        const item = document.createElement('div');
+        item.className = 'rename-item';
+        const formattedText = renderMinecraftText(rawText);
+        item.appendChild(formattedText);
+
+        item.addEventListener('click', function() {
+          navigator.clipboard.writeText(rawText)
+            .then(() => {
+              item.classList.add('copied');
+              setTimeout(() => item.classList.remove('copied'), 1000);
+            });
+        });
+
+        container.appendChild(item);
+      });
+    }
+
+    renameModal.style.display = 'flex';
+  });
+
+  // Close modal handlers
+  closeModalBtn.addEventListener('click', () => {
+    renameModal.style.display = 'none';
+  });
+
+  renameModal.addEventListener('click', (e) => {
+    if (e.target === renameModal) {
+      renameModal.style.display = 'none';
+    }
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && renameModal.style.display === 'flex') {
+      renameModal.style.display = 'none';
+    }
+  });
+});
 </script>
-<div style="margin-top: 3rem; font-size: 0.9rem; color: gray; cursor: pointer;" onclick="document.getElementById('yt-help').style.display = 'block'; this.style.display = 'none';">
+<div style="margin-top: 3rem; font-size: 0.9rem; color: gray; cursor: pointer;" onclick="const yt = document.getElementById('yt-help'); yt.style.display = 'block'; setTimeout(() => { yt.style.maxHeight = '400px'; yt.style.opacity = '1'; }, 10); this.style.display = 'none';">
   I'm indian, how do I use this site?
 </div>
-<div id="yt-help" style="display: none; margin-top: 1rem;">
+<div id="yt-help" style="display: none; margin-top: 1rem; max-height: 0; overflow: hidden; transition: max-height 0.6s ease, opacity 0.6s ease; opacity: 0;">
   <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/JhAJSe-vSYs" title="YouTube video player" frameborder="0" allowfullscreen></iframe>
+</div>
+
+<div id="renameModal" class="modal-overlay">
+  <div class="modal-content">
+    <h2>Your Saved Renames</h2>
+    <div class="rename-list" id="renameList">
+
+      <div class="rename-category">
+        <div class="rename-header" style="color: #55FFFF;">SPACE CRATE</div>
+        <div class="rename-items" id="spaceCrateItems"></div>
+      </div>
+
+      <div class="rename-category">
+        <div class="rename-header" style="color: #FF5555;">GODLY CRATE</div>
+        <div class="rename-items" id="godlyItems"></div>
+      </div>
+
+      <div class="rename-category">
+        <div class="rename-header" style="color: #FFFF55;">UNIQUE CRATE</div>
+        <div class="rename-items" id="uniqueItems"></div>
+      </div>
+
+      <div class="rename-category">
+        <div class="rename-header" style="color: #fc54f1;">PARTY CRATE</div>
+        <div class="rename-items" id="partyItems"></div>
+      </div>
+
+      <div class="rename-category">
+        <div class="rename-header" style="color: #55FF55;">EPIC CRATE</div>
+        <div class="rename-items" id="epicItems"></div>
+      </div>
+
+      <div class="rename-category">
+        <div class="rename-header" style="color: #42f8cd;">VOTE CRATE</div>
+        <div class="rename-items" id="voteItems"></div>
+      </div>
+    </div>
+
+    <div class="modal-actions">
+      <button id="closeModalBtn">Close</button>
+    </div>
+  </div>
 </div>
 </body>
 </html>
